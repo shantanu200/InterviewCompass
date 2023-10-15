@@ -18,6 +18,10 @@ const CompanySchema = new mongoose.Schema<ICompanySchema>({
     type: String,
     required: true,
   },
+  password: {
+    type: String,
+    required: true,
+  },
   phoneNumber: {
     type: String,
   },

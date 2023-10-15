@@ -38,7 +38,7 @@ export async function createCompany(
         email: data.email,
       });
 
-      if (userObj && userObj._id) {
+      if (userObj._id && userObj) {
         return {
           status: 201,
           message: "Company is created",

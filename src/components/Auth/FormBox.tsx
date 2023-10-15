@@ -33,9 +33,10 @@ const RENDERINPUT = [
 
 interface PropForm {
   className?: HTMLProps<HTMLElement>["className"];
+  setIsLogin?: (values: any) => void;
 }
 
-const FormBox: React.FC<PropForm> = ({ className }) => {
+const FormBox: React.FC<PropForm> = ({ className, setIsLogin }) => {
   return (
     <section className={`p-8 w-3/5 ${className}`}>
       <h1 className="text-3xl font-bold my-8">
@@ -45,6 +46,7 @@ const FormBox: React.FC<PropForm> = ({ className }) => {
         initialValues={{
           name: "",
           email: "",
+          password: "",
           phoneNumber: "",
           website: "",
           address: "",
@@ -82,8 +84,8 @@ const FormBox: React.FC<PropForm> = ({ className }) => {
                   handleChange={handleChange(`${inp.name}`)}
                   handleBlur={handleBlur(`${inp.name}`)}
                 />
-                {touched[inp.name] && errors[inp.name] && (
-                  <ErrorText error={errors[inp.name]} />
+                {touched[inp?.name] && errors[inp?.name] && (
+                  <ErrorText error={errors[inp?.name]} />
                 )}
               </div>
             ))}

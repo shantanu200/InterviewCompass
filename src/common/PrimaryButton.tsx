@@ -6,12 +6,14 @@ const PrimaryButton: React.FC<PropButton> = ({
   className,
   type,
   icon,
+  disabled,
 }) => {
   return (
     <button
       type={type || "button"}
-      className={`p-4 border bg-[#28A745] text-white ${className}`}
+      className={`p-4 border  ${className}`}
       onClick={handleFunction}
+      disabled={disabled}
     >
       {icon} {text}
     </button>

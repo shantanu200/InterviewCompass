@@ -20,4 +20,13 @@ export const ValidationCompany = yup.object().shape({
       "Invalid Website url",
     ),
   address: yup.string().min(10, "Please enter complete address"),
+  password: yup.string().required("Please enter the password"),
+});
+
+export const ValidationCompanyLogin = yup.object().shape({
+  email: yup
+    .string()
+    .email("Invalid Email")
+    .required("Please enter complete Company Email"),
+  password: yup.string().required("Please enter the password"),
 });

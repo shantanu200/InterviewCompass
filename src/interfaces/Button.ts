@@ -7,4 +7,5 @@ export interface PropButton {
   className?: HTMLProps<HTMLElement>["className"];
   type?: string;
   icon?: React.ReactNode;
+  disabled?: boolean
 }

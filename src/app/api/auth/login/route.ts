@@ -9,5 +9,12 @@ export async function POST(req: Request) {
 
   const { status, data, message } = await getCompany(body.email);
 
-  return NextResponse.json({ data, message }, { status });
+  if (body.password === data.password) {
+    return NextResponse.json({ data, message }, { status });
+  } else {
+    return NextResponse.json(
+      { message: "Password not matched" },
+      { status: 404 },
+    );
+  }
 }

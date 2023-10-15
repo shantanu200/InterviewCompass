@@ -1,4 +1,5 @@
-import axios, { AxiosResponse } from "axios";
+import { APIResponse } from "@/interfaces/APIResponse";
+import axios, { AxiosResponse, AxiosError } from "axios";
 
 interface IResponse {
   reqStatus: boolean;
@@ -29,6 +30,7 @@ export async function APICall(
   url: string,
   body?: any,
 ): Promise<IResponse> {
+  let message;
   try {
     const { data, status } = (await APIOperation(
       operation,
@@ -36,11 +38,10 @@ export async function APICall(
       body,
     )) as AxiosResponse;
 
-    console.log(data, status);
-
     if (status >= 200 && status <= 299) {
       return {
         reqStatus: true,
+        data: data?.data,
         message: data?.message,
       };
     }
@@ -48,14 +49,12 @@ export async function APICall(
       reqStatus: false,
       message: data?.message,
     };
-  } catch (error) {
+  } catch (e) {
+    const error = e as AxiosError;
+    const data = error?.response?.data as APIResponse;
     return {
       reqStatus: false,
-      message: "Internal Server Overloaded",
+      message: data?.message,
     };
-    console.error(error);
   }
 }
-export async function GETDATA() {}
-export async function PUTDATA() {}
-export async function DELETEDATA() {}

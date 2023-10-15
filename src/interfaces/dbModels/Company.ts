@@ -6,6 +6,7 @@ export interface ICompanySchema {
   foundingYear: string;
   website: string;
   email: string;
+  password: string;
   phoneNumber: string;
   socialMediaLinks: [
     {
