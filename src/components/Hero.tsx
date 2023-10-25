@@ -18,7 +18,7 @@ const Hero: React.FC = () => {
           </p>
           <button
             className="border text-[#007BFF] text-base font-bold border-[#007BFF] py-2 px-16 hover:bg-[#007BFF] hover:text-white duration-300 ease-linear"
-            onClick={() => router.push("/auth")}
+            onClick={() => router.push(`/auth?type=student`)}
           >
             Sign Up
           </button>

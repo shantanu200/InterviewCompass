@@ -3,9 +3,9 @@ import { APICall } from "@/app/server/config";
 import ErrorText from "@/common/ErrorText";
 import PrimaryButton from "@/common/PrimaryButton";
 import TextInput from "@/common/TextInput";
-import { ILoginForm } from "@/interfaces/Form";
 import { ValidationCompanyLogin } from "@/schemas/schemas";
 import { COLORS } from "@/utils/color";
+import { Alert, Spin } from "antd";
 import { Formik } from "formik";
 import { useRouter } from "next/navigation";
 import React, { HTMLProps, useState } from "react";
@@ -17,6 +17,7 @@ interface PropForm {
 }
 const LoginBox: React.FC<PropForm> = ({ className, setIsLogin }) => {
   const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
   return (
     <section className={`p-8 w-3/5 grid grid-cols-1 gap-8  ${className}`}>
       <Formik
@@ -26,9 +27,10 @@ const LoginBox: React.FC<PropForm> = ({ className, setIsLogin }) => {
         }}
         validationSchema={ValidationCompanyLogin}
         onSubmit={async (values) => {
+          setLoading(true);
           const { reqStatus, data, message } = await APICall(
             "POST",
-            "/api/auth/login",
+            "/api/auth/login?type=company",
             {
               email: values?.email,
               password: values?.password,
@@ -36,9 +38,10 @@ const LoginBox: React.FC<PropForm> = ({ className, setIsLogin }) => {
           );
 
           if (reqStatus) {
+            setLoading(false);
+            localStorage.setItem("ACCESSTOKEN", String(data?.token));
             alert(`Login Successful`);
-            console.log(data);
-            router.push(`/company/${data?._id}`);
+            router.push(`/company/home`);
           } else {
             alert(message);
           }
@@ -68,6 +71,7 @@ const LoginBox: React.FC<PropForm> = ({ className, setIsLogin }) => {
             <div>
               <TextInput
                 name="password"
+                type="password"
                 value={values.password}
                 handleBlur={handleBlur("password")}
                 placeHolder="Company password"
@@ -80,13 +84,13 @@ const LoginBox: React.FC<PropForm> = ({ className, setIsLogin }) => {
 
             <div className="grid grid-cols-2 gap-4">
               <PrimaryButton
-                className={`text-white bg-[${COLORS.secondary}]`}
+                className={`text-white p-4 bg-[${COLORS.secondary}]`}
                 text="Sign In"
                 handleFunction={handleSubmit}
               />
               <PrimaryButton
                 icon={<BsGoogle />}
-                className={`text-blue-600 bg-white flex justify-center gap-4 items-center`}
+                className={`text-blue-600 p-4 bg-white flex justify-center gap-4 items-center`}
                 text="Login with Google"
                 handleFunction={() => {}}
               />

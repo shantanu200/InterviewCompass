@@ -12,16 +12,24 @@ interface IOperation {
   data: any;
 }
 
-const APIOperation = async (operation: string, url: string, body?: any) => {
+const APIOperation = async (
+  operation: string,
+  url: string,
+  body?: any,
+  headers = {},
+) => {
+  const uHeaders = {
+    headers: headers,
+  };
   switch (operation) {
     case "POST":
-      return axios.post(url, body);
+      return axios.post(url, body, uHeaders);
     case "GET":
-      return axios.get(url);
+      return axios.get(url, uHeaders);
     case "PUT":
-      return axios.put(url, body);
+      return axios.put(url, body, uHeaders);
     case "DELETE":
-      return axios.delete(url);
+      return axios.delete(url, uHeaders);
   }
 };
 
@@ -29,6 +37,7 @@ export async function APICall(
   operation: string,
   url: string,
   body?: any,
+  headers?: any,
 ): Promise<IResponse> {
   let message;
   try {
@@ -36,12 +45,13 @@ export async function APICall(
       operation,
       url,
       body,
+      headers,
     )) as AxiosResponse;
 
     if (status >= 200 && status <= 299) {
       return {
         reqStatus: true,
-        data: data?.data,
+        data: data,
         message: data?.message,
       };
     }

@@ -30,3 +30,31 @@ export const ValidationCompanyLogin = yup.object().shape({
     .required("Please enter complete Company Email"),
   password: yup.string().required("Please enter the password"),
 });
+
+export const validateAboutDetails = yup.object().shape({
+  description: yup
+    .string()
+    .min(20, "Description must contain 20 characters")
+    .required("Please enter description"),
+});
+
+export const validateCompanyDetails = yup.object().shape({
+  name: yup.string().required("Please enter complete Company Name"),
+  email: yup
+    .string()
+    .email("Invalid Email")
+    .required("Please enter complete Company Email"),
+  phoneNumber: yup
+    .string()
+    .matches(
+      /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
+      "Invalid Contact Number",
+    )
+    .required("Please enter complete Company Contact Number"),
+  website: yup
+    .string()
+    .matches(
+      /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/,
+      "Invalid Website url",
+    ),
+});

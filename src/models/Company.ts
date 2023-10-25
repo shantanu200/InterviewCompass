@@ -46,6 +46,9 @@ const CompanySchema = new mongoose.Schema<ICompanySchema>({
       type: String,
     },
   },
+  profileImage: {
+    type: String,
+  },
 });
 
 const Company =

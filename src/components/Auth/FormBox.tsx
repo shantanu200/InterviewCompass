@@ -1,13 +1,10 @@
 "use client";
-import { APICall, POSTDATA } from "@/app/server/config";
+import { APICall } from "@/app/server/config";
 import ErrorText from "@/common/ErrorText";
 import PrimaryButton from "@/common/PrimaryButton";
 import TextArea from "@/common/TextArea";
 import TextInput from "@/common/TextInput";
-import connectDatabase from "@/lib/mongo";
 import { ValidationCompany } from "@/schemas/schemas";
-import { TextField } from "@mui/material";
-import { error } from "console";
 import { Formik } from "formik";
 import { HTMLProps, useState } from "react";
 import { BsGoogle } from "react-icons/bs";
@@ -107,14 +104,14 @@ const FormBox: React.FC<PropForm> = ({ className, setIsLogin }) => {
             <PrimaryButton
               type="submit"
               text="Hire the Best Talent"
-              className="col-span-2 rounded-lg text-lg"
+              className="col-span-2 rounded-lg text-lg p-4"
               handleFunction={handleSubmit}
             />
             <div className="col-span-2 text-center">OR</div>
             <PrimaryButton
               icon={<BsGoogle className="text-blue-600" />}
               text="Create Account with Google"
-              className="col-span-2 flex items-center justify-center gap-4 bg-white text-blue-700 rounded-lg text-lg"
+              className="col-span-2 p-4 flex items-center justify-center gap-4 bg-white text-blue-700 rounded-lg text-lg"
               handleFunction={() => {}}
             />
           </div>

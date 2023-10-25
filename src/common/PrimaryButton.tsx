@@ -4,14 +4,13 @@ const PrimaryButton: React.FC<PropButton> = ({
   text,
   handleFunction,
   className,
-  type,
   icon,
   disabled,
 }) => {
   return (
     <button
-      type={type || "button"}
-      className={`p-4 border  ${className}`}
+      type="submit"
+      className={`border flex items-center gap-4  ${className}`}
       onClick={handleFunction}
       disabled={disabled}
     >

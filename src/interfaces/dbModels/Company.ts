@@ -23,4 +23,5 @@ export interface ICompanySchema {
     email: string;
     phoneNumber: string;
   };
+  profileImage: string;
 }
